@@ -42,28 +42,26 @@ void bfs(vector<vector<int> > maps, int& answer){
             answer = n.count;
             break;
         }
-        else{
-            //up
-            if(n.y != 0 && maps[n.y-1][n.x] != 0){
-                q.push(node(n.x, n.y - 1, n.count +1));
-                maps[n.y-1][n.x] = 0;
-            }
-            //down
-            if(n.y != maps.size() - 1 && maps[n.y + 1][n.x] != 0){
-                q.push(node(n.x, n.y + 1, n.count + 1));
-                maps[n.y + 1][n.x] = 0;
-            }
-            //left
-            if(n.x != 0 && maps[n.y][n.x -1] != 0){
-                q.push(node(n.x - 1, n.y , n.count + 1));
-                maps[n.y][n.x -1] = 0;
-            }
-            //right
-            if(n.x != maps[0].size() - 1 && maps[n.y][n.x + 1] != 0){
-                q.push(node(n.x + 1, n.y, n.count + 1));
-                maps[n.y][n.x + 1] = 0;
-            }
+         //up
+        if(n.y != 0 && maps[n.y-1][n.x] != 0){
+            q.push(node(n.x, n.y - 1, n.count +1));
+            maps[n.y-1][n.x] = 0;
+        }    
+        //down
+        if(n.y != maps.size() - 1 && maps[n.y + 1][n.x] != 0){
+            q.push(node(n.x, n.y + 1, n.count + 1));
+            maps[n.y + 1][n.x] = 0;
         }
+        //left
+        if(n.x != 0 && maps[n.y][n.x -1] != 0){
+            q.push(node(n.x - 1, n.y , n.count + 1));
+            maps[n.y][n.x -1] = 0;
+        }
+        //right
+        if(n.x != maps[0].size() - 1 && maps[n.y][n.x + 1] != 0){
+            q.push(node(n.x + 1, n.y, n.count + 1));
+            maps[n.y][n.x + 1] = 0;
+        }    
         q.pop();
     }
 }
