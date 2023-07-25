@@ -22,8 +22,6 @@ void dfs(vector<vector<int>> maps, int x, int y,int count, int& answer){
         dfs(maps, x - 1, y, count +1, answer);
     if(x != maps[0].size() - 1 && maps[y][x + 1] != 0)
         dfs(maps, x+1, y, count +1, answer);
-    //길 없으면
-    
 }
 struct node{
     int x;
