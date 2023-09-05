@@ -21,32 +21,16 @@ vector<int> solution(vector<int> answers) {
         if(s3[i % 10] == answers[i])
             count[2] += 1;
     } 
-    vector<int>index = {0,1,2};
     
-    for(int i = 0; i < index.size(); i++){
-        for(int j = 0; j < index.size() - 1; j++){
-            if(count[index[j]] < count[index[j + 1]]){
-                cout<<index[0]<<index[1]<<index[2]<<endl;
-                swap(index[j], index[j + 1]);
-            }
-            else if(count[index[j]] == count[index[j+1]]){
-                if(index[j] > index[j+1]){
-                    cout<<index[0]<<index[1]<<index[2]<<endl;
-                    swap(index[j], index[j + 1]);
-                }
-            }
-        }
+    int maxValue = 0;
+    for(int i = 0; i < 3; i++){
+        if(maxValue < count[i])
+            maxValue = count[i];
     }
-    answer.push_back(index[0] + 1);
-    for(int i = 1; i < index.size(); i++){
-        if(count[index[0]] == count[index[i]])
-            answer.push_back(index[i] + 1);
+    
+    for(int i = 0; i < 3; i++){
+        if(count[i] == maxValue)
+            answer.push_back(i + 1);
     }
     return answer;
-}
-
-void swap(int& a, int& b){
-    int temp = a;
-    a = b;
-    b = temp;
 }
