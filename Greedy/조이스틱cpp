@@ -1,0 +1,37 @@
+#include <string>
+#include <vector>
+#include <deque> 
+
+using namespace std;
+int distance(int a, int len){
+    a = a > 0 ? a : -a;
+    return a > len /2 ? len -a : a;
+}
+
+void dfs(deque<int> cursorPoints,int count, int len, int cur_cursor, int& answer){
+    if(answer != 0 && answer < count) return;
+    if(cursorPoints.empty()) {
+        if(answer == 0 || answer > count) answer = count;
+        return;
+    }
+    int front = cursorPoints.front();
+    int back = cursorPoints.back();
+    cursorPoints.pop_front();
+    dfs(cursorPoints, count + distance(cur_cursor - front, len), len, front, answer);
+    cursorPoints.push_front(front);
+    cursorPoints.pop_back();
+    dfs(cursorPoints, count + distance(cur_cursor - back, len), len, back, answer);
+}
+int solution(string name) {
+    int answer = 0;
+    deque<int> cursorPoints;
+    for(int i = 0; i < name.length(); i++){
+        int count = name[i] - 'A';
+        if(count != 0 && i != 0) cursorPoints.push_back(i);
+        answer = count > 13 ? answer + 26 - count : answer + count;
+    }
+    int cur_idx = 0;
+    int minCursorMove = 0;
+    dfs(cursorPoints, 0, name.length(), cur_idx, minCursorMove);
+    return answer + minCursorMove;
+}
