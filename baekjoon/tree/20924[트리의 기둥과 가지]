@@ -1,0 +1,55 @@
+#include<iostream>
+#include<stdio.h>
+#include<vector>
+
+struct edge {
+	int dst = 0;
+	int weight = 0;
+	edge(int d, int w) : dst(d), weight(w) { }
+};
+struct node {
+	std::vector<edge> edges;
+};
+int Find_giga(const std::vector<node>& graph, std::vector<bool>&visited, const int root, int* weight) {
+	int result = 0;
+	visited[root] = true;
+	if (graph[root].edges.size() == 2 && *weight == 0) return root;
+	if (graph[root].edges.size() > 2) return root;
+	for (edge e : graph[root].edges) {
+		if (!visited[e.dst]) {
+			*weight += e.weight;
+			result = Find_giga(graph, visited, e.dst, weight);
+		}
+	}
+	return result;
+}
+int FInd_Longest_Branch(const std::vector<node>&graph, std::vector<bool>& visited, const int root, int weight) {
+	int result = 0;
+	visited[root] = true;
+	if (graph[root].edges.size() == 1) return weight;
+	for (edge e : graph[root].edges) {
+		if (!visited[e.dst]) {
+			int temp = FInd_Longest_Branch(graph, visited, e.dst, weight + e.weight);
+			if (temp > result) result = temp;
+		}
+	}
+	return result;
+}
+int main() {
+	int n, root;
+	std::vector<node> graph;
+	std::cin >> n >> root;
+	graph.resize(n);
+	for (int i = 0; i < n - 1; i++) {
+		int n1, n2, w;
+		std::cin >> n1 >> n2 >> w;
+		graph[n1 - 1].edges.push_back(edge(n2 - 1, w));
+		graph[n2 - 1].edges.push_back(edge(n1 - 1, w));
+	}
+	std::vector<bool> visited(n);
+	int weight = 0;
+	int giga = Find_giga(graph, visited, root - 1, &weight);
+	std::cout << weight;
+	weight = FInd_Longest_Branch(graph, visited, giga, 0);
+	std::cout << " "  << weight;
+}
