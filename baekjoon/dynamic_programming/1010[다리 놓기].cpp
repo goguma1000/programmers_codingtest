@@ -23,3 +23,23 @@ int main() {
 	
 	return 0;
 }
+///sol 2
+#include<iostream>
+
+int main() {
+	std::ios::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
+	long long t,n,m;
+	std::cin >> t;
+	for (int i = 0; i < t; i++) {
+		std::cin >> n >> m;
+		int r = 1;
+		long long result = 1;
+		for (int j = m; j > m - n; j--) {
+			result = result * j / r;
+			r++;
+		}
+		std::cout << result << "\n";
+	}
+	
+	return 0;
+}
