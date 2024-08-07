@@ -1,5 +1,5 @@
 #include<iostream>
-#include<unordered_set>
+#include<vector>
 #include<string>
 #include<algorithm>
 using namespace std;
@@ -14,16 +14,18 @@ int main() {
 	std::ios::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
 	int n;
 	cin >> n;
-	unordered_set<string> arr;
-	std::vector<string> result;
+	vector<string> arr(n);
 	while (n > 0) {
-		string temp;
-		cin >> temp;
-		arr.insert(temp);
+		cin >> arr[n - 1];
 		--n;
 	}
-	for (auto str : arr) result.push_back(str);
-	std::sort(result.begin(), result.end(), compare);
-	for (auto str : result) cout << str << '\n';
+	std::sort(arr.begin(), arr.end(), compare);
+	string prev(" ");
+	for (auto str : arr) {
+		if (prev.compare(str) != 0) {
+			cout << str << '\n';
+			prev = str;
+		}
+	}
 	return 0;
 }
