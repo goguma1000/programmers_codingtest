@@ -1,3 +1,5 @@
+//첨엔 하나씩 해보는 방식으로 해서 시간초과. 질문게시판 살짝 참고해서 0주변 그룹의 모양 갯수로 최대값 구함.
+
 #include <iostream>
 #include <vector>
 #include <queue>
