@@ -140,7 +140,42 @@ int main() {
 			break;
 		}
 	}
-	
+	int a, b;
+	cin >> a >> b;
+	vector<int> preNode(n + 1, -1);
+	queue<int> q;
+	q.push(a);
+	preNode[a] = a;
+	while (!q.empty()) {
+		int cur = q.front();
+		q.pop();
+		if (nodes[cur].parent >= 0 && preNode[nodes[cur].parent] == -1) {
+			q.push(nodes[cur].parent);
+			preNode[nodes[cur].parent] = cur;
+			if (nodes[cur].parent == b) break;
+		}
+		for (int child : nodes[cur].children) {
+			if (child == b) {
+				preNode[child] = cur;
+				break;
+			}
+			if (preNode[child] == -1) {
+				q.push(child);
+				preNode[child] = cur;
+			}
+		}
+	}
+	stack<int> result;
+	result.push(b);
+	while (b != a) {
+		result.push(preNode[b]);
+		b = preNode[b];
+	}
+	cout << result.size() << '\n';
+	while (!result.empty()) {
+		cout << result.top() << ' ';
+		result.pop();
+	}
 	return 0;
 }
 */
