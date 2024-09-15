@@ -59,13 +59,10 @@ int main() {
 			nodes[root].children.push_back(i);
 			continue;
 		}
-
 		bool isInserted = false;
 		for (int j = 0; j < nodes[root].children.size(); j++) {
 			int child = nodes[root].children[j];
-			long long pow_dy = pow(nodes[child].y - nodes[i].y,2);
-			long long pow_dx = pow(nodes[child].x - nodes[i].x,2);
-			if ((double)abs(nodes[child].r- nodes[i].r) > sqrt(pow_dy + pow_dx)) {
+			if (abs(nodes[child].r- nodes[i].r) > sqrtf(pow(nodes[child].x - nodes[i].x, 2) + pow(nodes[child].y - nodes[i].y, 2))) {
 				if (nodes[child].r > nodes[i].r) {
 					root = child;
 					j = -1;
