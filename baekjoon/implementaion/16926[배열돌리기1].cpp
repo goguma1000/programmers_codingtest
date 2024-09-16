@@ -54,3 +54,73 @@ int main() {
 	}
 	return 0;
 }
+// sol2
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+	int n, m, r;
+	cin >> n >> m >> r;
+	vector<vector<int>> map(n);
+	for (int i = 0; i < n; i++) {
+		map[i].resize(m);
+		for (int j = 0; j < m; j++) {
+			cin >> map[i][j];
+		}
+	}
+	vector<vector<pair<int, int>>> rotationSet;
+	int level = 0;
+	int i = 0, j = 0;
+	while (level <= n - 1 - level && level <= m - 1 - level) {
+		rotationSet.push_back(vector< pair<int, int>>());
+		while (true) {
+			rotationSet[level].push_back({ i,j });
+			if ((level != n - 1 - level && i == level && j == level + 1) || (level == n - 1 - level && j == m - 1 - level) || (level == m - 1 - level && i == n - 1 - level)) {
+				i = level + 1;
+				break;
+			}
+			if (i < n - 1 - level && j == level) {
+				++i;
+			}
+			else if (i == n - 1 - level && j < m - 1 - level) {
+				++j;
+			}
+			else if (j == m - 1 - level && i > level) {
+				--i;
+			}
+			else if (i == level && j > level) {
+				--j;
+			}
+		}
+		level++;
+	}
+	for (int i = 0; i < rotationSet.size(); i++) {
+		int rot = r % rotationSet[i].size();
+		if (rot == 0) continue;
+		int count = 0;
+		for (int j = 0; j < rot; j++) {
+			int next = j;
+			int preval = map[rotationSet[i][next].first][rotationSet[i][next].second];
+			if (count == rotationSet[i].size()) break;
+			while (true) {
+				count++;
+				if ((next + rot) % rotationSet[i].size() == j) {
+					map[rotationSet[i][j].first][rotationSet[i][j].second] = preval;
+					break;
+				}
+				next = (next + rot) % rotationSet[i].size();
+				int temp = map[rotationSet[i][next].first][rotationSet[i][next].second];
+				map[rotationSet[i][next].first][rotationSet[i][next].second] = preval;
+				preval = temp;
+			}
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << map[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+	return 0;
+}
