@@ -15,6 +15,7 @@ struct File {
 };
 
 int main() {
+	std::ios::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
 	int d, f;
 	cin >> d >> f;
 	unordered_map<string,int> directoryIdx;
