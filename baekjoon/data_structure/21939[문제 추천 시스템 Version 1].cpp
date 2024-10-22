@@ -4,14 +4,6 @@
 #include <functional>
 #include <unordered_map>
 using namespace std;
-bool minComp(pair<int, int>& a, pair<int, int>& b) {
-	if (a.first == b.second) return a.second > b.second;
-	else return a.first > b.second;
-}
-bool maxComp(pair<int, int>& a, pair<int, int>& b) {
-	if (a.first == b.second) return a.second < b.second;
-	else return a.first < b.second;
-}
 int main() {
 	std::ios::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
 	unordered_map<int, int> problems; // key: pNum, value: level
