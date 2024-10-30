@@ -1,3 +1,6 @@
+//답 봄.
+//각 동전 case일때 경우의 수를 미리 구해놔서 더할 생각을 못함.
+// OOOO는 DOOO랑 동일하고 DOOO는 OOO와 DDOO로 쪼개짐 이를 바탕으로 점화식을 세울 수 있음
 #include <iostream>
 #include<algorithm>
 #include <vector>
